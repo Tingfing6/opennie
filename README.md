@@ -14,6 +14,14 @@ A modern, production-ready template for building full-stack React applications u
 - 🎉 TailwindCSS for styling
 - 📖 [React Router docs](https://reactrouter.com/)
 
+## 📚 Documentation
+
+For more detailed information about this project, please refer to:
+
+- **[Home Page Feature Guide](./Home%20Page%20Feature%20Guide.md)** - Comprehensive guide covering the home page implementation, including financial overview, quick bookkeeping, asset management, category statistics, budget tracking, and trend charts.
+
+- **[OPENNIE Project Specification](./OPENNIE-Project%20Specification.md)** - Complete project specification detailing the technical architecture (React Router 7 + FastAPI), PWA features, AI integration, Notion-style design system, and all core functional modules.
+
 ## Getting Started
 
 ### Installation
