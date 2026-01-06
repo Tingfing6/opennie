@@ -16,10 +16,10 @@ export function AssetAccountSelector({
   assets,
   selectedAssetId,
   onSelect,
-  placeholder = "选择资产账户",
+  placeholder = "Select asset account",
   disabled = false,
   className = "",
-  label = "关联资产账户",
+  label = "Linked Asset Account",
   showOptional = true,
 }: AssetAccountSelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,12 +28,12 @@ export function AssetAccountSelector({
     ? assets.find((asset) => asset.id === selectedAssetId)
     : null;
 
-  // 格式化金额
+  // Format currency
   const formatCurrency = (amount: number) => {
-    return `¥${amount.toLocaleString("zh-CN", { minimumFractionDigits: 2 })}`;
+    return `¥${amount.toLocaleString("en-US", { minimumFractionDigits: 2 })}`;
   };
 
-  // 获取资产类型对应的图标
+  // Get asset type icon
   const getAssetIcon = (type: string) => {
     const iconMap: { [key: string]: string } = {
       cash: "💰",
@@ -42,22 +42,22 @@ export function AssetAccountSelector({
       real_estate: "🏠",
       vehicle: "🚗",
       other: "💼",
-      // 可以根据需要扩展更多类型
+      // Can extend more types as needed
     };
     return iconMap[type] || "💼";
   };
 
-  // 获取资产类型名称
+  // Get asset type name
   const getAssetTypeName = (type: string) => {
     const typeMap: { [key: string]: string } = {
-      cash: "现金",
-      bank_deposit: "银行存款",
-      investment: "投资理财",
-      real_estate: "房产",
-      vehicle: "车辆",
-      other: "其他",
+      cash: "Cash",
+      bank_deposit: "Bank Deposit",
+      investment: "Investment",
+      real_estate: "Real Estate",
+      vehicle: "Vehicle",
+      other: "Other",
     };
-    return typeMap[type] || "其他";
+    return typeMap[type] || "Other";
   };
 
   const handleToggle = () => {
@@ -75,18 +75,17 @@ export function AssetAccountSelector({
     <div className={`space-y-2 ${className}`}>
       <div className="flex items-center space-x-2">
         <label className="text-sm font-medium text-gray-700">{label}</label>
-        {showOptional && <span className="text-xs text-gray-400">(可选)</span>}
+        {showOptional && <span className="text-xs text-gray-400">(Optional)</span>}
       </div>
 
       <div className="relative">
         <button
           onClick={handleToggle}
           disabled={disabled}
-          className={`w-full p-3 border rounded-lg text-left flex items-center justify-between transition-colors ${
-            disabled
+          className={`w-full p-3 border rounded-lg text-left flex items-center justify-between transition-colors ${disabled
               ? "bg-gray-100 text-gray-400 cursor-not-allowed"
               : "border-gray-200 hover:border-gray-300 hover:bg-gray-25 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-          }`}
+            }`}
         >
           <div className="flex items-center space-x-3">
             {selectedAsset ? (
@@ -114,9 +113,8 @@ export function AssetAccountSelector({
           </div>
           {!disabled && (
             <svg
-              className={`w-5 h-5 text-gray-400 transition-transform ${
-                isOpen ? "rotate-180" : ""
-              }`}
+              className={`w-5 h-5 text-gray-400 transition-transform ${isOpen ? "rotate-180" : ""
+                }`}
               fill="none"
               stroke="currentColor"
             >
@@ -132,19 +130,18 @@ export function AssetAccountSelector({
 
         {isOpen && !disabled && (
           <div className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-dropdown max-h-64 overflow-y-auto">
-            {/* 无选择选项 */}
+            {/* No selection option */}
             <button
               onClick={() => handleSelect(undefined)}
-              className={`w-full p-3 text-left flex items-center justify-between hover:bg-gray-25 transition-colors border-b border-gray-100 ${
-                !selectedAssetId ? "bg-primary-25 text-primary-600" : ""
-              }`}
+              className={`w-full p-3 text-left flex items-center justify-between hover:bg-gray-25 transition-colors border-b border-gray-100 ${!selectedAssetId ? "bg-primary-25 text-primary-600" : ""
+                }`}
             >
               <div className="flex items-center space-x-3">
                 <span className="text-lg">❌</span>
                 <div>
-                  <div className="font-medium">不关联资产账户</div>
+                  <div className="font-medium">No linked asset account</div>
                   <div className="text-sm text-gray-500">
-                    此笔交易不影响资产余额
+                    This transaction will not affect asset balance
                   </div>
                 </div>
               </div>
@@ -164,13 +161,13 @@ export function AssetAccountSelector({
               )}
             </button>
 
-            {/* 资产账户列表 */}
+            {/* Asset account list */}
             {assets.length === 0 ? (
               <div className="p-4 text-center text-gray-500">
                 <div className="text-2xl mb-2">💼</div>
-                <div className="text-sm">暂无可用资产账户</div>
+                <div className="text-sm">No asset accounts available</div>
                 <div className="text-xs text-gray-400 mt-1">
-                  请先在资产管理中添加资产账户
+                  Please add asset accounts in Asset Management first
                 </div>
               </div>
             ) : (
@@ -178,19 +175,17 @@ export function AssetAccountSelector({
                 <button
                   key={asset.id}
                   onClick={() => handleSelect(asset.id)}
-                  className={`w-full p-3 text-left flex items-center justify-between hover:bg-gray-25 transition-colors border-b border-gray-100 last:border-b-0 ${
-                    selectedAssetId === asset.id ? "bg-primary-25" : ""
-                  }`}
+                  className={`w-full p-3 text-left flex items-center justify-between hover:bg-gray-25 transition-colors border-b border-gray-100 last:border-b-0 ${selectedAssetId === asset.id ? "bg-primary-25" : ""
+                    }`}
                 >
                   <div className="flex items-center space-x-3">
                     <span className="text-lg">{getAssetIcon(asset.type)}</span>
                     <div>
                       <div
-                        className={`font-medium ${
-                          selectedAssetId === asset.id
+                        className={`font-medium ${selectedAssetId === asset.id
                             ? "text-primary-600"
                             : "text-gray-900"
-                        }`}
+                          }`}
                       >
                         {asset.name}
                       </div>
@@ -223,7 +218,7 @@ export function AssetAccountSelector({
         )}
       </div>
 
-      {/* 提示文本 */}
+      {/* Hint text */}
       {selectedAsset && (
         <div className="text-xs text-gray-500 pl-3">
           <div className="flex items-center space-x-1">
@@ -234,7 +229,7 @@ export function AssetAccountSelector({
                 clipRule="evenodd"
               />
             </svg>
-            <span>关联此资产账户后，交易金额将自动更新该账户的余额</span>
+            <span>After linking this asset account, transaction amounts will automatically update the account balance</span>
           </div>
         </div>
       )}
